@@ -136,7 +136,7 @@ const requestHandler = async (req, res) => {
     }
     else {
         res.writeHead(404, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ status: false, message: "Route not founddddd" }));
+        res.end(JSON.stringify({ status: false, message: "Route not found" }));
     }
 };
 
