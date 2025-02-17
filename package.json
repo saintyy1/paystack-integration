@@ -1,13 +1,12 @@
 {
   "name": "paystack-integration",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "description": "Paystack Integration",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build": "echo 'No build step required'",
-    "vercel-build": "npm install"
+    "build": "echo 'No build step required'"
   },
   "keywords": [],
   "author": "Olufowobi Tolu",
