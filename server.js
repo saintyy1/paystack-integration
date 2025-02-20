@@ -47,7 +47,7 @@ const requestHandler = async (req, res) => {
                     body: JSON.stringify({
                         email,
                         amount: amount * 100,
-                        callback_url,
+                        callback_url, // No reference yet
                     }),
                 });
 
@@ -59,12 +59,20 @@ const requestHandler = async (req, res) => {
 
                 const reference = paystackData.data.reference;
 
-                await db.collection("orders").doc(orderId).update({reference});
+                // Save reference in Firestore
+                await db.collection("orders").doc(orderId).update({ reference });
+
+                // **Manually append reference to callback URL**
+                const finalCallbackUrl = `${callback_url}?reference=${reference}`;
 
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({
                     message: 'Order initialized, awaiting payment',
-                    data: paystackData.data,
+                    data: {
+                        authorization_url: paystackData.data.authorization_url,
+                        reference: reference,
+                        callback_url: finalCallbackUrl, // Send back modified callback URL
+                    },
                 }));
             } catch (error) {
                 console.error('Error initializing order:', error);
