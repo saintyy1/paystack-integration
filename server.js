@@ -1,7 +1,7 @@
 require("dotenv").config();
 const http = require("http");
 const { db } = require("./firebase");
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = process.env.ALLOWED_ORIGIN;
 
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 
