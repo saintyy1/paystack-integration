@@ -62,16 +62,13 @@ const requestHandler = async (req, res) => {
                 // Save reference in Firestore
                 await db.collection("orders").doc(orderId).update({ reference });
 
-                // **Manually append reference to callback URL**
-                const finalCallbackUrl = `${callback_url}?reference=${reference}`;
-
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({
                     message: 'Order initialized, awaiting payment',
                     data: {
                         authorization_url: paystackData.data.authorization_url,
                         reference: reference,
-                        callback_url: finalCallbackUrl, // Send back modified callback URL
+                        callback_url: callback_url // Send back modified callback URL
                     },
                 }));
             } catch (error) {
